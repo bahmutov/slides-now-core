@@ -1,0 +1,25 @@
+{
+  "name": "slides-now-core",
+  "version": "0.0.0",
+  "main": "index.html",
+  "directory": "components",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components",
+    "bower_components"
+  ],
+  "dependencies": {
+    "purl": "~2.3.1",
+    "code-box": "~0.0.2"
+  },
+  "author": "Gleb Bahmutov <gleb.bahmutov@gmail.com>",
+  "license": "MIT",
+  "keywords": [
+    "html",
+    "presentation",
+    "slides",
+    "browser",
+    "markdown"
+  ]
+}
