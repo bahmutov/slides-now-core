@@ -1,9 +1,9 @@
 optionsParser = require './options.coffee'
 
-require './bespokeCounterPlugin.coffee'
-require './bespokeShortcutPlugin.coffee'
-require './bespokeProgressBar.coffee'
-require './bespokeThemePlugin.coffee'
+require './bespoke-plugins/bespokeCounterPlugin.coffee'
+require './bespoke-plugins/bespokeShortcutPlugin.coffee'
+require './bespoke-plugins/bespokeProgressBar.coffee'
+require './bespoke-plugins/bespokeThemePlugin.coffee'
 
 md2slides = require './md2slides.coffee'
 {verify} = require 'check-types'
@@ -11,7 +11,7 @@ md2slides = require './md2slides.coffee'
 # Assumes the page has been cleaned from previous markup
 window.mdToPresentation = (md, filename, element) ->
   verify.unemptyString md, 'expected markdown string'
-  if !element? then element = $('div#dropzone')
+  if !element? then throw new Error('Undefined element to bind presentation to')
   verify.positiveNumber element.length, 'invalid element to append to ' + element.selector
 
   readable = window.innerWidth < 400

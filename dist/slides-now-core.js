@@ -2995,13 +2995,13 @@ var md2slides, optionsParser, verify;
 
 optionsParser = require('./options.coffee');
 
-require('./bespokeCounterPlugin.coffee');
+require('./bespoke-plugins/bespokeCounterPlugin.coffee');
 
-require('./bespokeShortcutPlugin.coffee');
+require('./bespoke-plugins/bespokeShortcutPlugin.coffee');
 
-require('./bespokeProgressBar.coffee');
+require('./bespoke-plugins/bespokeProgressBar.coffee');
 
-require('./bespokeThemePlugin.coffee');
+require('./bespoke-plugins/bespokeThemePlugin.coffee');
 
 md2slides = require('./md2slides.coffee');
 
@@ -3011,7 +3011,7 @@ window.mdToPresentation = function(md, filename, element) {
   var $article, addSlide, e, footerText, htmlParts, lastSlashAt, name, options, readable, wrapSection;
   verify.unemptyString(md, 'expected markdown string');
   if (element == null) {
-    element = $('div#dropzone');
+    throw new Error('Undefined element to bind presentation to');
   }
   verify.positiveNumber(element.length, 'invalid element to append to ' + element.selector);
   readable = window.innerWidth < 400;
@@ -3107,7 +3107,7 @@ window.mdToPresentation = function(md, filename, element) {
 };
 
 
-},{"./bespokeCounterPlugin.coffee":4,"./bespokeProgressBar.coffee":5,"./bespokeShortcutPlugin.coffee":6,"./bespokeThemePlugin.coffee":7,"./md2slides.coffee":8,"./options.coffee":9,"check-types":1}],11:[function(require,module,exports){
+},{"./bespoke-plugins/bespokeCounterPlugin.coffee":4,"./bespoke-plugins/bespokeProgressBar.coffee":5,"./bespoke-plugins/bespokeShortcutPlugin.coffee":6,"./bespoke-plugins/bespokeThemePlugin.coffee":7,"./md2slides.coffee":8,"./options.coffee":9,"check-types":1}],11:[function(require,module,exports){
 var S, removeSpeakerNotes, verify;
 
 verify = require('check-types').verify;
@@ -3138,4 +3138,4 @@ removeSpeakerNotes = function(md) {
 module.exports = removeSpeakerNotes;
 
 
-},{"check-types":1,"string":3}]},{},[4,5,6,7,8,9,10,11])
+},{"check-types":1,"string":3}]},{},[8,9,10,11])
