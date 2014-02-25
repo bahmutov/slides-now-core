@@ -1,28 +1,11 @@
 {
   "name": "slides-now-core",
-  "version": "0.0.0",
   "description": "HTML slide presentation based on Markdown",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/bahmutov/slides-now-core.git"
-  },
-  "keywords": [
-    "html",
-    "presentation",
-    "slides",
-    "browser",
-    "markdown"
-  ],
+  "version": "0.0.0",
   "author": "Gleb Bahmutov <gleb.bahmutov@gmail.com>",
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/bahmutov/slides-now-core/issues"
   },
-  "homepage": "https://github.com/bahmutov/slides-now-core",
   "devDependencies": {
     "check-types": "~1.1.1",
     "coffeeify": "~0.6.0",
@@ -53,5 +36,22 @@
     "pre-git": "0.0.15",
     "string": "~1.8.0",
     "time-grunt": "~0.2.9"
+  },
+  "homepage": "https://github.com/bahmutov/slides-now-core",
+  "keywords": [
+    "html",
+    "presentation",
+    "slides",
+    "browser",
+    "markdown"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/bahmutov/slides-now-core.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
   }
 }

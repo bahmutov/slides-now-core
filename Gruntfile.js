@@ -77,8 +77,7 @@ module.exports = function(grunt) {
     copy: {
       main: {
         files: {
-          'dist/README.md': 'README.md',
-          'dist/CHANGES.md': 'CHANGES.md'
+          'dist/README.md': 'README.md'
         }
       }
     },
