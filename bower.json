@@ -7,7 +7,9 @@
     "**/.*",
     "node_modules",
     "components",
-    "bower_components"
+    "bower_components",
+    "src",
+    "tmp"
   ],
   "dependencies": {
     "bespoke.js": "0.2.2",
