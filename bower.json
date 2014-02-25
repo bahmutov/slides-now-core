@@ -10,6 +10,8 @@
     "bower_components"
   ],
   "dependencies": {
+    "bespoke.js": "0.2.2",
+    "bespoke-hash": "0.1.2",
     "code-box": "~0.0.2"
   },
   "author": "Gleb Bahmutov <gleb.bahmutov@gmail.com>",

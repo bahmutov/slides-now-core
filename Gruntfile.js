@@ -66,6 +66,37 @@ module.exports = function(grunt) {
       }
     },
 
+    concat: {
+      css_app: {
+        options: {
+          separator: '\n',
+          stripBanners: true,
+          banner: '/*! <%= pkg.name %> - <%= pkg.version %> */\n\n'
+        },
+        src: [
+          'tmp/*.css',
+          'css/themes/*.css'
+        ],
+        dest: 'dist/slides-now-core.css'
+      },
+      js_app: {
+        options: {
+          separator: ';\n',
+          stripBanners: false,
+          banner: '/*! <%= pkg.name %> - <%= pkg.version %> ' +
+          'built on <%= grunt.template.today("yyyy-mm-dd") %>\n' +
+          'author: <%= pkg.author %>, support: @bahmutov */\n\n'
+        },
+        src: [
+          'src/recenter.js',
+          'src/recenterImages.js',
+          'src/recenterCodeBlocks.js',
+          'tmp/app.js'
+        ],
+        dest: 'dist/slides-now-core.js'
+      }
+    },
+
     uglify: {
       components: {
         files: {
@@ -96,6 +127,6 @@ module.exports = function(grunt) {
   plugins.forEach(grunt.loadNpmTasks);
 
   grunt.registerTask('check', ['deps-ok', 'nice-package', 'jshint-solid', 'coffeelint', 'sync', 'bower']);
-  grunt.registerTask('build', ['browserify', 'copy']);
+  grunt.registerTask('build', ['browserify', 'concat', 'copy']);
   grunt.registerTask('default', ['check', 'build']);
 };
