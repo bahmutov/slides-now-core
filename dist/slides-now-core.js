@@ -3039,7 +3039,6 @@ window.mdToPresentation = function(md, filename, element) {
   $('body').addClass('slides-now');
   footerText = options.footer || options.title;
   if ((footerText != null) && !readable) {
-    console.log('setting footer');
     $('footer').text(footerText);
   }
   if (options['font-family'] != null) {

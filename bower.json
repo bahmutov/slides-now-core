@@ -9,7 +9,9 @@
     "components",
     "bower_components",
     "src",
-    "tmp"
+    "tmp",
+    "package.json",
+    "Gruntfile.js"
   ],
   "dependencies": {
     "bespoke.js": "0.2.2",
