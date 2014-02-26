@@ -25,7 +25,7 @@
     "grunt-contrib-watch": "~0.5.3",
     "grunt-deps-ok": "~0.1.7",
     "grunt-gh-pages": "~0.9.1",
-    "grunt-jshint-solid": "0.0.1",
+    "grunt-jshint-solid": "~0.1.0",
     "grunt-nice-package": "~0.2.2",
     "grunt-npm2bower-sync": "~0.3.0",
     "grunt-replace": "~0.6.2",

@@ -120,7 +120,35 @@ module.exports = function(grunt) {
           'src/**/*.js', 'src/**/*.coffee', 'css/**/*.css', 'styles/**/*'],
         tasks: ['build']
       }
+    },
+
+    filenames: {
+      src: {
+        options: {
+          valid: /^[a-z]+\.coffee$/
+        },
+        src: ['src/**/*.coffee']
+      }
     }
+  });
+
+  grunt.registerMultiTask('filenames', 'Validates source filenames', function () {
+    var basename = require('path').basename;
+    var options = this.options({
+      valid: /^[a-z][a-zA-Z]\./
+    });
+    grunt.verbose.writeln('Validating filenames using RegExp', options.valid);
+    var allValid = this.files.every(function (file) {
+      return file.src.every(function (filename) {
+        grunt.verbose.writeln('testing filename', filename);
+        var valid = options.valid.test(basename(filename));
+        if (!valid) {
+          grunt.log.error('file', filename, 'does not pass check', options.valid);
+        }
+        return valid;
+      });
+    });
+    return allValid;
   });
 
   var plugins = require('matchdep').filterDev('grunt-*');
