@@ -37,14 +37,15 @@ gt.test 'offset', ->
     gt.array parts
     gt.equal parts.length, 1
     html = parts.toString()
-    # console.log html
+    console.log html
     # console.log 'length', html.length
     gt.string html, 'got html back'
-    lines = html.split '\n'
-    gt.equal lines.length, 3
-    gt.ok /<p>normal text<\/p>/.test lines[0]
-    gt.ok /<pre><code>code1/.test lines[1]
-    gt.ok /code2<\/code><\/pre>/.test lines[2]
+    lines = html.trim().split '\n'
+    gt.equal lines.length, 4, 'number of returned lines'
+    gt.ok /<p>normal text<\/p>/.test(lines[0]), 'first line'
+    gt.ok /<pre><code>code1/.test(lines[1]), 'second line'
+    gt.ok /code2/.test(lines[2]), 'third line'
+    gt.ok /<\/code><\/pre>/.test(lines[3]), 'fourth line'
 
 gt.test 'offset with tabs', ->
     withTabs = withCode.replace '    ', '\t'

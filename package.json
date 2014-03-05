@@ -31,7 +31,7 @@
     "grunt-replace": "~0.6.2",
     "gt": "~0.8.34",
     "jshint-stylish": "~0.1.5",
-    "marked": "~0.2.10",
+    "marked": "0.3.1",
     "matchdep": "~0.3.0",
     "pre-git": "0.0.15",
     "string": "~1.8.0",
@@ -53,7 +53,8 @@
     "url": "git://github.com/bahmutov/slides-now-core.git"
   },
   "scripts": {
-    "test": "npm run unit",
-    "unit": "node node_modules/gt/gt.js --output src/test/*.coffee"
+    "test": "npm run unit && npm run e2e",
+    "unit": "node node_modules/gt/gt.js --output src/test/*.coffee",
+    "e2e": "node node_modules/gt/gt.js --output test/*.coffee"
   }
 }
