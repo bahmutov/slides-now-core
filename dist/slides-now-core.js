@@ -1,4 +1,4 @@
-/*! slides-now-core - 0.0.1 built on 2014-02-25
+/*! slides-now-core - 0.0.1 built on 2014-03-04
 author: Gleb Bahmutov <gleb.bahmutov@gmail.com>, support: @bahmutov */
 
 // Uses CSS to position elements in the center of its parent
@@ -2874,7 +2874,7 @@ directLinksToNewTab = function(html) {
 
 md2html = function(md) {
   var htmlParts, mdParts, severalBlankLines;
-  verify.string(md, 'expected markdown text');
+  verify.unemptyString(md, 'expected markdown text');
   severalBlankLines = /\n\r\n\r\n\r|\n\n\n|\n---/;
   mdParts = md.split(severalBlankLines);
   return htmlParts = mdParts.map(function(mdPart) {

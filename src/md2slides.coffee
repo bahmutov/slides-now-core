@@ -8,7 +8,7 @@ directLinksToNewTab = (html) ->
   html.replace /<a\ href=/g, '<a target="_blank" href='
 
 md2html = (md) ->
-  verify.string md, 'expected markdown text'
+  verify.unemptyString md, 'expected markdown text'
 
   severalBlankLines = /\n\r\n\r\n\r|\n\n\n|\n---/
   mdParts = md.split severalBlankLines
