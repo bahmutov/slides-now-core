@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>slides-now-core test</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="author" content="Gleb Bahmutov">
+    <link rel="stylesheet" href="http://code.jquery.com/qunit/qunit-1.14.0.css">
+    <link rel="stylesheet" href="bower_components/code-box.css">
+    <link rel="stylesheet" href="slides-now-core.css">
+    <style>
+      .bespoke-inactive {
+        display: none;
+      }
+      
+    </style>
+    <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+    <script src="http://code.jquery.com/qunit/qunit-1.14.0.js"></script>
+    <script src="bower_components/es5-shim.js"></script>
+    <script src="bower_components/bespoke.js"></script>
+    <script src="bower_components/bespoke-hash.js"></script>
+    <script src="bower_components/flowtype.js"></script>
+    <script src="bower_components/code-box.js"></script>
+    <script src="slides-now-core.js"></script>
+    <script>
+      $(function () {
+        console.log('testing presentation conversion');
+        if (typeof window.mdToPresentation !== 'function') {
+          throw new Error('Cannot find mdToPresentation function');
+        }
+        var md = document.getElementById('md').innerHTML;
+        mdToPresentation(md, 'example', $('#presentation'));
+        
+        // check the generated HTML
+        QUnit.test('number of slides', function () {
+          var slides = $('#presentation > article > section');
+          QUnit.equal(slides.length, 3, 'there should be 3 slides');
+        });
+        
+        QUnit.test('title', function () {
+          var title = $('#presentation > article > section h1').text();
+          QUnit.equal(title, 'slides-now-core', 'correct title');
+        });
+        
+        QUnit.test('one slide should be active', function () {
+          var active = $('section.bespoke-active');
+          QUnit.equal(active.length, 1, 'probably first slide');
+        });
+      });
+      
+    </script>
+  </head>
+  <body>
+    <div id="qunit"></div>
+    <div id="qunit-fixture"></div>
+    <div id="presentation"></div>
+    <p id="md" style="display:none;"># slides-now-core
+
+this is slide 1
+
+## two
+
+this is slide 2
+
+## three
+
+this is slide 3
+
+    </p>
+  </body>
+</html>
