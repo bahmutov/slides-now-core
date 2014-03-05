@@ -154,6 +154,19 @@ module.exports = function(grunt) {
 
     qunit: {
       all: ['dist/index.html']
+    },
+
+    'gh-pages': {
+      options: {
+        base: 'dist'
+      },
+      src: [
+        'index.html',
+        'README.md',
+        '*.js',
+        '*.css',
+        'bower_components/**/*'
+      ]
     }
   });
 
