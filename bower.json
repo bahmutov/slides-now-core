@@ -16,7 +16,8 @@
   "dependencies": {
     "bespoke.js": "0.2.2",
     "bespoke-hash": "0.1.2",
-    "code-box": "~0.0.2"
+    "code-box": "~0.0.2",
+    "es5-shim": "~2.1.0"
   },
   "author": "Gleb Bahmutov <gleb.bahmutov@gmail.com>",
   "license": "MIT",

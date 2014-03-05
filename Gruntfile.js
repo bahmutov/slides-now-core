@@ -113,7 +113,8 @@ module.exports = function(grunt) {
           'dist/bower_components/bespoke-hash.js': 'bower_components/bespoke-hash/dist/bespoke-hash.js',
           'dist/bower_components/flowType.js': 'components/flowType/flowtype.js',
           'dist/bower_components/code-box.js': 'bower_components/code-box/code-box.js',
-          'dist/bower_components/code-box.css': 'bower_components/code-box/code-box.css'
+          'dist/bower_components/code-box.css': 'bower_components/code-box/code-box.css',
+          'dist/bower_components/es5-shim.js': 'bower_components/es5-shim/es5-shim.js',
         }
       }
     },
@@ -149,6 +150,10 @@ module.exports = function(grunt) {
         },
         src: ['src/**/*.coffee']
       }
+    },
+
+    qunit: {
+      all: ['dist/index.html']
     }
   });
 
@@ -176,5 +181,5 @@ module.exports = function(grunt) {
 
   grunt.registerTask('check', ['deps-ok', 'nice-package', 'jshint-solid', 'coffeelint', 'sync', 'bower']);
   grunt.registerTask('build', ['browserify', 'concat', 'copy', 'jade']);
-  grunt.registerTask('default', ['check', 'build']);
+  grunt.registerTask('default', ['check', 'build', 'qunit']);
 };
