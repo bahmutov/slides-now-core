@@ -1,4 +1,4 @@
-/*! slides-now-core - 0.0.1 built on 2014-03-04
+/*! slides-now-core - 0.0.2 built on 2014-03-04
 author: Gleb Bahmutov <gleb.bahmutov@gmail.com>, support: @bahmutov */
 
 // Uses CSS to position elements in the center of its parent
