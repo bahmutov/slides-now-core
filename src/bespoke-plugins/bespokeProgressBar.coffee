@@ -1,12 +1,14 @@
 p = window.progressFullWidth
 
-p.bar = null
-p.timerBar = null
+if p?
+  p.bar = null
+  p.timerBar = null
+
 activeDeck = null
 isPaused = false
 
 bespoke.plugins.progressBar = (deck) ->
-  # console.log 'progressBar plugin, deck with', deck.slides.length, 'slides'
+  if !p? then return
   if p.bar? then p.bar.remove()
 
   activeDeck = deck
@@ -33,10 +35,12 @@ bespoke.plugins.progressBar = (deck) ->
             p.timerBar.pause()
             isPaused = true
 
-bespoke.plugins.progressBar.removeTimer = () ->
+bespoke.plugins.progressBar.removeTimer = ->
+  if !p? then return
   if p.timerBar? then p.timerBar.remove()
 
 bespoke.plugins.progressBar.timer = (durationSeconds) ->
+  if !p? then return
   if p.timerBar? then p.timerBar.remove()
   if !durationSeconds then return
 

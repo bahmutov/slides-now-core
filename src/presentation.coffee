@@ -29,20 +29,16 @@ window.mdToPresentation = (md, filename, element) ->
   # allow to restart the presentation
   $('article.bespoke-parent').unbind()
   $('article').remove()
-  $article = element.append '<article>'
 
   # custom UI options from Markdown text
   options = optionsParser.getSlidesNowOptions md
+  md = optionsParser.removeOptionsLines md
 
   if readable
-    $('body').removeClass('classic')
-      .addClass('full')
+    $('body').removeClass('classic').addClass('full')
   else if options.theme?
     verify.unemptyString options.theme, 'expected string theme name ' + options.theme
-    $('body').removeClass('classic')
-      .addClass(options.theme)
-
-  $('body').addClass('slides-now')
+    $('body').removeClass('classic').addClass(options.theme)
 
   footerText = options.footer || options.title
   if footerText? and !readable
@@ -50,22 +46,19 @@ window.mdToPresentation = (md, filename, element) ->
   if options['font-family']? then $('body').css('font-family', options['font-family'])
   if options['font-size']? then $('body').css('font-size', options['font-size'])
 
-  md = optionsParser.removeOptionsLines md
-  # console.log "removed options lines\n" + md
-
   wrapSection = (text) ->
     $slide = $('<section>\n' + text + '\n</section>\n')
     return $slide
 
-  $article = $('article')
+  $article = element.append '<article>'
   addSlide = (text) ->
     if !text? then return
     if text.length < 100
       if !/<img\ /.test(text)
         $span = $('<span class="centered">\n' + text + '\n</span>')
-        # $span.addClass('centerHorizontal')
         $span.addClass('fullHorizontal')
         $span.addClass('centerVertical')
+
         $slide = $('<section>')
         $slide.append $span
       else
@@ -76,6 +69,8 @@ window.mdToPresentation = (md, filename, element) ->
 
   htmlParts = md2slides md
   htmlParts.forEach addSlide
+
+  $('body').addClass('slides-now')
 
   # console.log 'converted markdown to\n' + $article.innerHTML
   if !readable

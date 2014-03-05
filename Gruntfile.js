@@ -108,7 +108,9 @@ module.exports = function(grunt) {
     copy: {
       main: {
         files: {
-          'dist/README.md': 'README.md'
+          'dist/README.md': 'README.md',
+          'dist/bower_components/bespoke.js': 'bower_components/bespoke.js/dist/bespoke.js',
+          'dist/bower_components/bespoke-hash.js': 'bower_components/bespoke-hash/dist/bespoke-hash.js'
         }
       }
     },
@@ -119,6 +121,21 @@ module.exports = function(grunt) {
           'partials/*',
           'src/**/*.js', 'src/**/*.coffee', 'css/**/*.css', 'styles/**/*'],
         tasks: ['build']
+      }
+    },
+
+    jade: {
+      index: {
+        options: {
+          pretty: true,
+          data: {
+            version: 'version: <%= pkg.version %>',
+            timestamp: 'timestamp: <%= grunt.template.today() %>'
+          }
+        },
+        files: {
+          'dist/index.html': 'index.jade'
+        }
       }
     },
 
@@ -155,6 +172,6 @@ module.exports = function(grunt) {
   plugins.forEach(grunt.loadNpmTasks);
 
   grunt.registerTask('check', ['deps-ok', 'nice-package', 'jshint-solid', 'coffeelint', 'sync', 'bower']);
-  grunt.registerTask('build', ['browserify', 'concat', 'copy']);
+  grunt.registerTask('build', ['browserify', 'concat', 'copy', 'jade']);
   grunt.registerTask('default', ['check', 'build']);
 };

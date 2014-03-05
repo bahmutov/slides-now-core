@@ -2831,9 +2831,10 @@ var activeDeck, isPaused, p;
 
 p = window.progressFullWidth;
 
-p.bar = null;
-
-p.timerBar = null;
+if (p != null) {
+  p.bar = null;
+  p.timerBar = null;
+}
 
 activeDeck = null;
 
@@ -2841,6 +2842,9 @@ isPaused = false;
 
 bespoke.plugins.progressBar = function(deck) {
   var numberSlides;
+  if (p == null) {
+    return;
+  }
   if (p.bar != null) {
     p.bar.remove();
   }
@@ -2881,12 +2885,18 @@ bespoke.plugins.progressBar = function(deck) {
 };
 
 bespoke.plugins.progressBar.removeTimer = function() {
+  if (p == null) {
+    return;
+  }
   if (p.timerBar != null) {
     return p.timerBar.remove();
   }
 };
 
 bespoke.plugins.progressBar.timer = function(durationSeconds) {
+  if (p == null) {
+    return;
+  }
   if (p.timerBar != null) {
     p.timerBar.remove();
   }
@@ -3128,15 +3138,14 @@ window.mdToPresentation = function(md, filename, element) {
   }
   $('article.bespoke-parent').unbind();
   $('article').remove();
-  $article = element.append('<article>');
   options = optionsParser.getSlidesNowOptions(md);
+  md = optionsParser.removeOptionsLines(md);
   if (readable) {
     $('body').removeClass('classic').addClass('full');
   } else if (options.theme != null) {
     verify.unemptyString(options.theme, 'expected string theme name ' + options.theme);
     $('body').removeClass('classic').addClass(options.theme);
   }
-  $('body').addClass('slides-now');
   footerText = options.footer || options.title;
   if ((footerText != null) && !readable) {
     $('footer').text(footerText);
@@ -3147,13 +3156,12 @@ window.mdToPresentation = function(md, filename, element) {
   if (options['font-size'] != null) {
     $('body').css('font-size', options['font-size']);
   }
-  md = optionsParser.removeOptionsLines(md);
   wrapSection = function(text) {
     var $slide;
     $slide = $('<section>\n' + text + '\n</section>\n');
     return $slide;
   };
-  $article = $('article');
+  $article = element.append('<article>');
   addSlide = function(text) {
     var $slide, $span;
     if (text == null) {
@@ -3176,6 +3184,7 @@ window.mdToPresentation = function(md, filename, element) {
   };
   htmlParts = md2slides(md);
   htmlParts.forEach(addSlide);
+  $('body').addClass('slides-now');
   if (!readable) {
     try {
       if (options.timer != null) {
