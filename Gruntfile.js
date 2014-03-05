@@ -110,7 +110,10 @@ module.exports = function(grunt) {
         files: {
           'dist/README.md': 'README.md',
           'dist/bower_components/bespoke.js': 'bower_components/bespoke.js/dist/bespoke.js',
-          'dist/bower_components/bespoke-hash.js': 'bower_components/bespoke-hash/dist/bespoke-hash.js'
+          'dist/bower_components/bespoke-hash.js': 'bower_components/bespoke-hash/dist/bespoke-hash.js',
+          'dist/bower_components/flowType.js': 'components/flowType/flowtype.js',
+          'dist/bower_components/code-box.js': 'bower_components/code-box/code-box.js',
+          'dist/bower_components/code-box.css': 'bower_components/code-box/code-box.css'
         }
       }
     },

@@ -1,4 +1,4 @@
-# title
+# slides-now-core
 
 this is slide 1
 

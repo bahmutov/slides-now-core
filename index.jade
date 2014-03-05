@@ -6,12 +6,20 @@ html
     meta(name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no")
     meta(name="author" content="Gleb Bahmutov")
     link(rel="stylesheet" href="http://code.jquery.com/qunit/qunit-1.14.0.css")
+    link(rel="stylesheet" href="bower_components/code-box.css")
     link(rel="stylesheet" href="slides-now-core.css")
+
+    style.
+      .bespoke-inactive {
+        display: none;
+      }
 
     script(src="http://code.jquery.com/jquery-2.1.0.min.js")
     script(src="http://code.jquery.com/qunit/qunit-1.14.0.js")
     script(src="bower_components/bespoke.js")
     script(src="bower_components/bespoke-hash.js")
+    script(src="bower_components/flowtype.js")
+    script(src="bower_components/code-box.js")
     script(src="slides-now-core.js")
 
     script.
@@ -28,6 +36,16 @@ html
           var slides = $('#presentation > article > section');
           QUnit.equal(slides.length, 3, 'there should be 3 slides');
         });
+
+        QUnit.test('title', function () {
+          var title = $('#presentation > article > section h1').text();
+          QUnit.equal(title, 'slides-now-core', 'correct title');
+        });
+
+        QUnit.test('one slide should be active', function () {
+          var active = $('section.bespoke-active');
+          QUnit.equal(active.length, 1, 'probably first slide');
+        });
       });
 
   body
@@ -36,5 +54,5 @@ html
 
     div#presentation
     p#md(style="display:none;")
-      include README.md
+      include test/test1.md
 
