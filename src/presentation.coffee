@@ -17,7 +17,7 @@ window.postProcessSlide = ($slide) ->
     caption = caption.replace /\ fullscreen$/, ''
     $slide.empty()
       .append($img)
-      .append('<span class="fullscreen-caption">' + caption + '</p>')
+      .append('<p class="fullscreen-caption">' + caption + '</p>')
   return $slide
 
 # Assumes the page has been cleaned from previous markup

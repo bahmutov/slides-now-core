@@ -12,3 +12,6 @@ this is slide 3
 
 ---
 ![slide four fullscreen](https://raw.github.com/bahmutov/talks/master/images/border.jpg)
+
+---
+![slide five fullscreen](https://raw.github.com/bahmutov/talks/master/images/status-mobile.jpg)

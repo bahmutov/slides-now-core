@@ -3127,7 +3127,7 @@ window.postProcessSlide = function($slide) {
   if ($img.length === 1) {
     caption = $img.attr('alt');
     caption = caption.replace(/\ fullscreen$/, '');
-    $slide.empty().append($img).append('<span class="fullscreen-caption">' + caption + '</p>');
+    $slide.empty().append($img).append('<p class="fullscreen-caption">' + caption + '</p>');
   }
   return $slide;
 };
