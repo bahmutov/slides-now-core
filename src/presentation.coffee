@@ -13,11 +13,12 @@ if !$? then throw new Error('Undefined jQuery $')
 window.postProcessSlide = ($slide) ->
   $img = $ 'p > img', $slide
   if $img.length == 1
-    caption = $img.attr('alt')
-    caption = caption.replace /\ fullscreen$/, ''
     $slide.empty()
       .append($img)
-      .append('<p class="fullscreen-caption">' + caption + '</p>')
+    caption = $img.attr('alt')
+    caption = caption.replace /\ ?fullscreen$/, ''
+    if caption
+      $slide.append('<p class="fullscreen-caption">' + caption + '</p>')
   return $slide
 
 # Assumes the page has been cleaned from previous markup

@@ -15,3 +15,6 @@ this is slide 3
 
 ---
 ![slide five fullscreen](https://raw.github.com/bahmutov/talks/master/images/status-mobile.jpg)
+
+---
+![fullscreen](https://raw.github.com/bahmutov/talks/master/images/status-combined.jpg)

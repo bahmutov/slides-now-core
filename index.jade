@@ -114,6 +114,24 @@ html
           var caption = $('.fullscreen-caption', $slide).text();
           QUnit.equal(caption, 'slide four', 'correct caption from image alt text');
         });
+
+        QUnit.test('fullscreen image without caption', function () {
+          var html = '<section class="bespoke-slide bespoke-active">\n' +
+            '<p><img src="https://raw.github.com/bahmutov/talks/master/images/border.jpg" alt="fullscreen"></p>\n'+
+            '</section>\n';
+          var $slide = $(html);
+          var $img = $('p > img', $slide);
+          QUnit.equal($img.length, 1, 'found image inside slide');
+          var text = $img.attr('alt');
+          QUnit.equal(typeof text, 'string', 'found alt text');
+          QUnit.equal(text, 'fullscreen', 'correct alt text');
+
+          $slide = postProcessSlide($slide);
+          QUnit.equal(typeof $slide, 'object', 'returns an object');
+
+          var caption = $('.fullscreen-caption', $slide);
+          QUnit.equal(caption.length, 0, 'there should be no caption');
+        });
       });
 
   body

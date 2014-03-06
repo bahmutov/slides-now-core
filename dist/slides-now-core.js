@@ -1,4 +1,4 @@
-/*! slides-now-core - 0.0.2 built on 2014-03-05
+/*! slides-now-core - 0.0.2 built on 2014-03-06
 author: Gleb Bahmutov <gleb.bahmutov@gmail.com>, support: @bahmutov */
 
 // Uses CSS to position elements in the center of its parent
@@ -3125,9 +3125,12 @@ window.postProcessSlide = function($slide) {
   var $img, caption;
   $img = $('p > img', $slide);
   if ($img.length === 1) {
+    $slide.empty().append($img);
     caption = $img.attr('alt');
-    caption = caption.replace(/\ fullscreen$/, '');
-    $slide.empty().append($img).append('<p class="fullscreen-caption">' + caption + '</p>');
+    caption = caption.replace(/\ ?fullscreen$/, '');
+    if (caption) {
+      $slide.append('<p class="fullscreen-caption">' + caption + '</p>');
+    }
   }
   return $slide;
 };
