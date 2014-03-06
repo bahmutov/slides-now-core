@@ -13,6 +13,11 @@ html
       .bespoke-inactive {
         display: none;
       }
+      .bespoke-slide {
+        border: 1px solid black;
+        border-radius: 4px;
+        padding-left: 20px;
+      }
 
     script(src="http://code.jquery.com/jquery-2.1.0.min.js")
     script(src="http://code.jquery.com/qunit/qunit-1.14.0.js")
@@ -30,7 +35,11 @@ html
           throw new Error('Cannot find mdToPresentation function');
         }
         var md = document.getElementById('md').innerHTML;
-        mdToPresentation(md, 'example', $('#presentation'));
+        mdToPresentation({
+          md: md,
+          filename: 'example',
+          element: $('#presentation')
+        });
 
         // check the generated HTML
         QUnit.test('number of slides', function () {

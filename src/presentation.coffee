@@ -9,21 +9,23 @@ md2slides = require './md2slides.coffee'
 {verify} = require 'check-types'
 
 # Assumes the page has been cleaned from previous markup
-window.mdToPresentation = (md, filename, element) ->
-  verify.unemptyString md, 'expected markdown string'
-  if !element? then throw new Error('Undefined element to bind presentation to')
-  verify.positiveNumber element.length, 'invalid element to append to ' + element.selector
+window.mdToPresentation = (opts) ->
+  if !opts? then throw new Error('Missing presentatio options')
+
+  verify.unemptyString opts.md, 'expected markdown string'
+  if !opts.element? then throw new Error('Undefined element to bind presentation to')
+  verify.positiveNumber opts.element.length, 'invalid element to append to ' + opts.element.selector
 
   readable = window.innerWidth < 400
 
   if readable
     $('footer').text ''
-  else if filename
-    verify.unemptyString filename, 'expected filename, got ' + filename
-    name = filename
-    lastSlashAt = filename.lastIndexOf '/'
+  else if opts.filename
+    verify.unemptyString opts.filename, 'expected filename, got ' + opts.filename
+    name = opts.filename
+    lastSlashAt = opts.filename.lastIndexOf '/'
     if lastSlashAt != -1
-      name = filename.substr lastSlashAt
+      name = opts.filename.substr lastSlashAt
     $('footer').text name
 
   # allow to restart the presentation
@@ -31,8 +33,8 @@ window.mdToPresentation = (md, filename, element) ->
   $('article').remove()
 
   # custom UI options from Markdown text
-  options = optionsParser.getSlidesNowOptions md
-  md = optionsParser.removeOptionsLines md
+  options = optionsParser.getSlidesNowOptions opts.md
+  md = optionsParser.removeOptionsLines opts.md
 
   if readable
     $('body').removeClass('classic').addClass('full')
@@ -50,7 +52,7 @@ window.mdToPresentation = (md, filename, element) ->
     $slide = $('<section>\n' + text + '\n</section>\n')
     return $slide
 
-  $article = element.append '<article>'
+  $article = opts.element.append '<article>'
   addSlide = (text) ->
     if !text? then return
     if text.length < 100
@@ -83,7 +85,7 @@ window.mdToPresentation = (md, filename, element) ->
     catch e
       # do nothing
 
-    recenter()
+    if opts.recenter then recenter()
     recenterImages()
 
     bespoke.horizontal.from 'article',

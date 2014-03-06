@@ -121,10 +121,8 @@ module.exports = function(grunt) {
 
     watch: {
       all: {
-        files: ['Gruntfile.js', 'index.jade',
-          'partials/*',
-          'src/**/*.js', 'src/**/*.coffee', 'css/**/*.css', 'styles/**/*'],
-        tasks: ['build']
+        files: ['Gruntfile.js', 'index.jade', 'src/**/*.js', 'src/**/*.coffee'],
+        tasks: ['build', 'qunit']
       }
     },
 
@@ -195,4 +193,5 @@ module.exports = function(grunt) {
   grunt.registerTask('check', ['deps-ok', 'nice-package', 'jshint-solid', 'coffeelint', 'sync', 'bower']);
   grunt.registerTask('build', ['browserify', 'concat', 'copy', 'jade']);
   grunt.registerTask('default', ['check', 'build', 'qunit']);
+  grunt.registerTask('run', ['default', 'watch']);
 };
