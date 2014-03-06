@@ -1,4 +1,4 @@
-/*! slides-now-core - 0.0.2 built on 2014-03-04
+/*! slides-now-core - 0.0.2 built on 2014-03-05
 author: Gleb Bahmutov <gleb.bahmutov@gmail.com>, support: @bahmutov */
 
 // Uses CSS to position elements in the center of its parent
@@ -3117,29 +3117,47 @@ md2slides = require('./md2slides.coffee');
 
 verify = require('check-types').verify;
 
-window.mdToPresentation = function(md, filename, element) {
-  var $article, addSlide, e, footerText, htmlParts, lastSlashAt, name, options, readable, wrapSection;
-  verify.unemptyString(md, 'expected markdown string');
-  if (element == null) {
+if (typeof $ === "undefined" || $ === null) {
+  throw new Error('Undefined jQuery $');
+}
+
+window.postProcessSlide = function($slide) {
+  var $img, caption;
+  $img = $('p > img', $slide);
+  if ($img.length === 1) {
+    caption = $img.attr('alt');
+    caption = caption.replace(/\ fullscreen$/, '');
+    $slide.empty().append($img).append('<p class="fullscreen-caption">' + caption + '</p>');
+  }
+  return $slide;
+};
+
+window.mdToPresentation = function(opts) {
+  var $article, addSlide, e, footerText, htmlParts, lastSlashAt, md, name, options, readable, wrapSection;
+  if (opts == null) {
+    throw new Error('Missing presentatio options');
+  }
+  verify.unemptyString(opts.md, 'expected markdown string');
+  if (opts.element == null) {
     throw new Error('Undefined element to bind presentation to');
   }
-  verify.positiveNumber(element.length, 'invalid element to append to ' + element.selector);
+  verify.positiveNumber(opts.element.length, 'invalid element to append to ' + opts.element.selector);
   readable = window.innerWidth < 400;
   if (readable) {
     $('footer').text('');
-  } else if (filename) {
-    verify.unemptyString(filename, 'expected filename, got ' + filename);
-    name = filename;
-    lastSlashAt = filename.lastIndexOf('/');
+  } else if (opts.filename) {
+    verify.unemptyString(opts.filename, 'expected filename, got ' + opts.filename);
+    name = opts.filename;
+    lastSlashAt = opts.filename.lastIndexOf('/');
     if (lastSlashAt !== -1) {
-      name = filename.substr(lastSlashAt);
+      name = opts.filename.substr(lastSlashAt);
     }
     $('footer').text(name);
   }
   $('article.bespoke-parent').unbind();
   $('article').remove();
-  options = optionsParser.getSlidesNowOptions(md);
-  md = optionsParser.removeOptionsLines(md);
+  options = optionsParser.getSlidesNowOptions(opts.md);
+  md = optionsParser.removeOptionsLines(opts.md);
   if (readable) {
     $('body').removeClass('classic').addClass('full');
   } else if (options.theme != null) {
@@ -3161,7 +3179,7 @@ window.mdToPresentation = function(md, filename, element) {
     $slide = $('<section>\n' + text + '\n</section>\n');
     return $slide;
   };
-  $article = element.append('<article>');
+  $article = opts.element.append('<article>');
   addSlide = function(text) {
     var $slide, $span;
     if (text == null) {
@@ -3180,6 +3198,7 @@ window.mdToPresentation = function(md, filename, element) {
     } else {
       $slide = wrapSection(text);
     }
+    $slide = postProcessSlide($slide);
     return $('article').append($slide);
   };
   htmlParts = md2slides(md);
@@ -3195,8 +3214,12 @@ window.mdToPresentation = function(md, filename, element) {
     } catch (_error) {
       e = _error;
     }
-    recenter();
-    recenterImages();
+    if (opts.recenter) {
+      recenter();
+    }
+    if (opts.recenterImages) {
+      recenterImages();
+    }
     bespoke.horizontal.from('article', {
       hash: true,
       vertical: true,

@@ -12,6 +12,44 @@
       .bespoke-inactive {
         display: none;
       }
+      .bespoke-slide {
+        border: 1px solid black;
+        border-radius: 4px;
+        padding: 0;
+        width: 800px;
+        height: 600px;
+        margin: auto;
+        position: relative;
+      }
+      .bespoke-slide > span > * {
+        padding-left: 20px;
+      }
+      .bespoke-slide > img {
+        max-width: 100%;
+        height: 100%;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .bespoke-slide .fullscreen-caption {
+        position: absolute;
+        z-index: 100;
+        bottom: 0em;
+        left: 0;
+        padding-top: 0.5em;
+        padding-left: 0.75em;
+        padding-right: 2em;
+        margin: 0;
+        font-size: 32pt;
+        display: inline-block;
+        background-image: -webkit-gradient(
+          linear,
+          left center, right center,
+          from(rgba(255,255,255,1.0)),
+          to(rgba(0,0,0,0)),
+          color-stop(.8,rgba(255,255,255,1.0))
+        );
+      }
       
     </style>
     <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
@@ -24,17 +62,22 @@
     <script src="slides-now-core.js"></script>
     <script>
       $(function () {
-        console.log('testing presentation conversion');
-        if (typeof window.mdToPresentation !== 'function') {
-          throw new Error('Cannot find mdToPresentation function');
-        }
-        var md = document.getElementById('md').innerHTML;
-        mdToPresentation(md, 'example', $('#presentation'));
+        QUnit.module('generated example presentation');
         
-        // check the generated HTML
+        QUnit.test('it is a function', function () {
+          QUnit.equal(typeof window.mdToPresentation, 'function');
+        });
+        
+        var md = document.getElementById('md').innerHTML;
+        mdToPresentation({
+          md: md,
+          filename: 'example',
+          element: $('#presentation')
+        });
+        
         QUnit.test('number of slides', function () {
           var slides = $('#presentation > article > section');
-          QUnit.equal(slides.length, 3, 'there should be 3 slides');
+          QUnit.ok(slides.length > 4, 'number of slides');
         });
         
         QUnit.test('title', function () {
@@ -45,6 +88,30 @@
         QUnit.test('one slide should be active', function () {
           var active = $('section.bespoke-active');
           QUnit.equal(active.length, 1, 'probably first slide');
+        });
+        
+        QUnit.module('postProcessSlide');
+        
+        QUnit.test('basics', function () {
+          QUnit.equal(typeof window.postProcessSlide, 'function', 'it is a function');
+        });
+        
+        QUnit.test('fullscreen image inside a slide', function () {
+          var html = '<section class="bespoke-slide bespoke-active">\n' +
+            '<p><img src="https://raw.github.com/bahmutov/talks/master/images/border.jpg" alt="slide four fullscreen"></p>\n'+
+            '</section>\n';
+          var $slide = $(html);
+          var $img = $('p > img', $slide);
+          QUnit.equal($img.length, 1, 'found image inside slide');
+          var text = $img.attr('alt');
+          QUnit.equal(typeof text, 'string', 'found alt text');
+          QUnit.equal(text, 'slide four fullscreen', 'correct alt text');
+          
+          $slide = postProcessSlide($slide);
+          QUnit.equal(typeof $slide, 'object', 'returns an object');
+          
+          var caption = $('.fullscreen-caption', $slide).text();
+          QUnit.equal(caption, 'slide four', 'correct caption from image alt text');
         });
       });
       
@@ -65,6 +132,12 @@ this is slide 2
 ## three
 
 this is slide 3
+
+---
+![slide four fullscreen](https://raw.github.com/bahmutov/talks/master/images/border.jpg)
+
+---
+![slide five fullscreen](https://raw.github.com/bahmutov/talks/master/images/status-mobile.jpg)
 
     </p>
   </body>
