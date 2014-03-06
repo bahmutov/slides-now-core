@@ -48,7 +48,7 @@
   ],
   "license": "MIT",
   "main": "index.js",
-  "pre-commit": "npm test",
+  "pre-commit": "grunt && npm test",
   "repository": {
     "type": "git",
     "url": "git://github.com/bahmutov/slides-now-core.git"
