@@ -3201,7 +3201,9 @@ window.mdToPresentation = function(opts) {
     if (opts.recenter) {
       recenter();
     }
-    recenterImages();
+    if (opts.recenterImages) {
+      recenterImages();
+    }
     bespoke.horizontal.from('article', {
       hash: true,
       vertical: true,

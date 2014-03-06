@@ -16,7 +16,14 @@ html
       .bespoke-slide {
         border: 1px solid black;
         border-radius: 4px;
-        padding-left: 20px;
+        padding: 0;
+        width: 800px;
+        height: 600px;
+        margin: auto;
+      }
+      .bespoke-slide > p > img {
+        width: 100%;
+        height: 100%;
       }
 
     script(src="http://code.jquery.com/jquery-2.1.0.min.js")
@@ -44,7 +51,7 @@ html
         // check the generated HTML
         QUnit.test('number of slides', function () {
           var slides = $('#presentation > article > section');
-          QUnit.equal(slides.length, 3, 'there should be 3 slides');
+          QUnit.equal(slides.length, 4, 'number of slides');
         });
 
         QUnit.test('title', function () {
@@ -64,5 +71,5 @@ html
 
     div#presentation
     p#md(style="display:none;")
-      include test/test1.md
+      include test/test-index.md
 

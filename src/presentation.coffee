@@ -86,7 +86,7 @@ window.mdToPresentation = (opts) ->
       # do nothing
 
     if opts.recenter then recenter()
-    recenterImages()
+    if opts.recenterImages then recenterImages()
 
     bespoke.horizontal.from 'article',
       hash: true
