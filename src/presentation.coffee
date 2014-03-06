@@ -8,6 +8,18 @@ require './bespoke-plugins/bespokeThemePlugin.coffee'
 md2slides = require './md2slides.coffee'
 {verify} = require 'check-types'
 
+if !$? then throw new Error('Undefined jQuery $')
+
+window.postProcessSlide = ($slide) ->
+  $img = $ 'p > img', $slide
+  if $img.length == 1
+    caption = $img.attr('alt')
+    caption = caption.replace /\ fullscreen$/, ''
+    $slide.empty()
+      .append($img)
+      .append('<span class="fullscreen-caption">' + caption + '</p>')
+  return $slide
+
 # Assumes the page has been cleaned from previous markup
 window.mdToPresentation = (opts) ->
   if !opts? then throw new Error('Missing presentatio options')
@@ -67,6 +79,9 @@ window.mdToPresentation = (opts) ->
         $slide = wrapSection text
     else
       $slide = wrapSection text
+
+    $slide = postProcessSlide $slide
+
     $('article').append $slide
 
   htmlParts = md2slides md

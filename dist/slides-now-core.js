@@ -3117,6 +3117,21 @@ md2slides = require('./md2slides.coffee');
 
 verify = require('check-types').verify;
 
+if (typeof $ === "undefined" || $ === null) {
+  throw new Error('Undefined jQuery $');
+}
+
+window.postProcessSlide = function($slide) {
+  var $img, caption;
+  $img = $('p > img', $slide);
+  if ($img.length === 1) {
+    caption = $img.attr('alt');
+    caption = caption.replace(/\ fullscreen$/, '');
+    $slide.empty().append($img).append('<span class="fullscreen-caption">' + caption + '</p>');
+  }
+  return $slide;
+};
+
 window.mdToPresentation = function(opts) {
   var $article, addSlide, e, footerText, htmlParts, lastSlashAt, md, name, options, readable, wrapSection;
   if (opts == null) {
@@ -3183,6 +3198,7 @@ window.mdToPresentation = function(opts) {
     } else {
       $slide = wrapSection(text);
     }
+    $slide = postProcessSlide($slide);
     return $('article').append($slide);
   };
   htmlParts = md2slides(md);

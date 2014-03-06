@@ -21,9 +21,29 @@ html
         height: 600px;
         margin: auto;
       }
-      .bespoke-slide > p > img {
+      .bespoke-slide > span > * {
+        padding-left: 20px;
+      }
+      .bespoke-slide > img {
         width: 100%;
         height: 100%;
+      }
+      .bespoke-slide span.fullscreen-caption {
+        position: relative;
+        top: -2em;
+        left: 0;
+        padding-top: 0.5em;
+        padding-left: 0.75em;
+        padding-right: 2em;
+        font-size: 32pt;
+        display: inline-block;
+        background-image: -webkit-gradient(
+          linear,
+          left center, right center,
+          from(rgba(255,255,255,1.0)),
+          to(rgba(0,0,0,0)),
+          color-stop(.8,rgba(255,255,255,1.0))
+        );
       }
 
     script(src="http://code.jquery.com/jquery-2.1.0.min.js")
@@ -37,10 +57,12 @@ html
 
     script.
       $(function () {
-        console.log('testing presentation conversion');
-        if (typeof window.mdToPresentation !== 'function') {
-          throw new Error('Cannot find mdToPresentation function');
-        }
+        QUnit.module('generated example presentation');
+
+        QUnit.test('it is a function', function () {
+          QUnit.equal(typeof window.mdToPresentation, 'function');
+        });
+
         var md = document.getElementById('md').innerHTML;
         mdToPresentation({
           md: md,
@@ -48,7 +70,6 @@ html
           element: $('#presentation')
         });
 
-        // check the generated HTML
         QUnit.test('number of slides', function () {
           var slides = $('#presentation > article > section');
           QUnit.equal(slides.length, 4, 'number of slides');
@@ -62,6 +83,30 @@ html
         QUnit.test('one slide should be active', function () {
           var active = $('section.bespoke-active');
           QUnit.equal(active.length, 1, 'probably first slide');
+        });
+
+        QUnit.module('postProcessSlide');
+
+        QUnit.test('basics', function () {
+          QUnit.equal(typeof window.postProcessSlide, 'function', 'it is a function');
+        });
+
+        QUnit.test('fullscreen image inside a slide', function () {
+          var html = '<section class="bespoke-slide bespoke-active">\n' +
+            '<p><img src="https://raw.github.com/bahmutov/talks/master/images/border.jpg" alt="slide four fullscreen"></p>\n'+
+            '</section>\n';
+          var $slide = $(html);
+          var $img = $('p > img', $slide);
+          QUnit.equal($img.length, 1, 'found image inside slide');
+          var text = $img.attr('alt');
+          QUnit.equal(typeof text, 'string', 'found alt text');
+          QUnit.equal(text, 'slide four fullscreen', 'correct alt text');
+
+          $slide = postProcessSlide($slide);
+          QUnit.equal(typeof $slide, 'object', 'returns an object');
+
+          var caption = $('span', $slide).text();
+          QUnit.equal(caption, 'slide four', 'correct caption from image alt text');
         });
       });
 
