@@ -6,7 +6,7 @@ $(function () {
     QUnit.equal(typeof window.mdToPresentation, 'function');
   });
 
-  var md = document.getElementById('md').innerHTML;
+  var md = $('#md').text();
   window.mdToPresentation({
     md: md,
     filename: 'example',

@@ -12,6 +12,9 @@
   margin: auto;
   position: relative;
 }
+.bespoke-slide blockquote > p {
+  white-space: pre;
+}
 .bespoke-slide > span > * {
   padding-left: 20px;
 }

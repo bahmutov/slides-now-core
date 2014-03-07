@@ -34,10 +34,10 @@ Use `![alt text](url)` syntax, not `![caption fullscreen](url)`
 
 ## quote
 
-This is quote
+This is a quote
 
-> This is a quote ... Blah blah blah
->                             - someone
+> line 1: This is a quote ... Blah blah blah
+> line 2: This is a quote ... Blah blah blah
 
 This is normal text after the quote
 
