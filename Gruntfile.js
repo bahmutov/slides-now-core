@@ -66,6 +66,17 @@ module.exports = function(grunt) {
       }
     },
 
+    stylus: {
+      compile: {
+        options: {
+          compress: false
+        },
+        files: {
+          'dist/slides-now-core.css': ['slides-now-core.styl']
+        }
+      }
+    },
+
     concat: {
       css_app: {
         options: {
@@ -73,11 +84,9 @@ module.exports = function(grunt) {
           stripBanners: true,
           banner: '/*! <%= pkg.name %> - <%= pkg.version %> */\n\n'
         },
-        src: [
-          'tmp/*.css',
-          'css/themes/*.css'
-        ],
-        dest: 'dist/slides-now-core.css'
+        files: {
+          'dist/slides-now-core.css': ['dist/slides-now-core.css']
+        }
       },
       js_app: {
         options: {
@@ -122,7 +131,7 @@ module.exports = function(grunt) {
 
     watch: {
       all: {
-        files: ['Gruntfile.js', 'index.jade', 'src/**/*.js', 'src/**/*.coffee', 'test/*'],
+        files: ['Gruntfile.js', 'index.jade', '*.styl', 'src/**/*.js', 'src/**/*.coffee', 'test/*'],
         tasks: ['build', 'qunit']
       }
     },
@@ -192,7 +201,7 @@ module.exports = function(grunt) {
   plugins.forEach(grunt.loadNpmTasks);
 
   grunt.registerTask('check', ['deps-ok', 'nice-package', 'jshint-solid', 'coffeelint', 'sync', 'bower']);
-  grunt.registerTask('build', ['browserify', 'concat', 'copy', 'jade']);
+  grunt.registerTask('build', ['stylus', 'browserify', 'concat', 'copy', 'jade']);
   grunt.registerTask('default', ['check', 'build', 'qunit']);
   grunt.registerTask('run', ['default', 'watch']);
 };

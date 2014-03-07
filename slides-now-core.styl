@@ -1,10 +1,8 @@
-/*! slides-now-core - 0.0.4 */
-
 .bespoke-inactive {
   display: none;
 }
 .bespoke-slide {
-  border: 1px solid #000;
+  border: 1px solid black;
   border-radius: 4px;
   padding: 0;
   width: 800px;
@@ -33,5 +31,11 @@
   margin: 0;
   font-size: 32pt;
   display: inline-block;
-  background-image: -webkit-gradient(linear, left center, right center, from(#fff), to(rgba(0,0,0,0)), color-stop(0.8, #fff));
+  background-image: -webkit-gradient(
+    linear,
+    left center, right center,
+    from(rgba(255,255,255,1.0)),
+    to(rgba(0,0,0,0)),
+    color-stop(.8,rgba(255,255,255,1.0))
+  );
 }

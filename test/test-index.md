@@ -32,6 +32,15 @@ Use `![alt text](url)` syntax, not `![caption fullscreen](url)`
 [![dependencies][dependencies-image]][dependencies-url]
 [![dev dependencies][dev-dependencies-image]][dev-dependencies-url]
 
+## quote
+
+This is quote
+
+> This is a quote ... Blah blah blah
+>                             - someone
+
+This is normal text after the quote
+
 [ci-image]: https://travis-ci.org/bahmutov/slides-now-core.png?branch=master
 [ci-url]: https://travis-ci.org/bahmutov/slides-now-core
 [dependencies-image]: https://david-dm.org/bahmutov/slides-now-core.png
