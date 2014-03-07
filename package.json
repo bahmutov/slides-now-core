@@ -1,7 +1,7 @@
 {
   "name": "slides-now-core",
   "description": "HTML slide presentation based on Markdown",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "author": "Gleb Bahmutov <gleb.bahmutov@gmail.com>",
   "bugs": {
     "url": "https://github.com/bahmutov/slides-now-core/issues"
