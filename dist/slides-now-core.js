@@ -3122,14 +3122,19 @@ if (typeof $ === "undefined" || $ === null) {
 }
 
 window.postProcessSlide = function($slide) {
-  var $img, caption;
+  var $img, caption, fullscreen, isFullscreen;
   $img = $('p > img', $slide);
-  if ($img.length === 1) {
+  if ($img.length === 1 && $slide.children().length === 1) {
     $slide.empty().append($img);
     caption = $img.attr('alt');
-    caption = caption.replace(/\ ?fullscreen$/, '');
-    if (caption) {
-      $slide.append('<p class="fullscreen-caption">' + caption + '</p>');
+    fullscreen = /\ ?fullscreen$/;
+    isFullscreen = fullscreen.test(caption);
+    if (isFullscreen) {
+      $img.addClass('fullscreen-image');
+      caption = caption.replace(fullscreen, '');
+      if (caption) {
+        $slide.append('<p class="fullscreen-caption">' + caption + '</p>');
+      }
     }
   }
   return $slide;
