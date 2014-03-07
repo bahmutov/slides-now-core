@@ -123,7 +123,7 @@ module.exports = function(grunt) {
           'dist/bower_components/flowType.js': 'components/flowType/flowtype.js',
           'dist/bower_components/code-box.js': 'bower_components/code-box/code-box.js',
           'dist/bower_components/code-box.css': 'bower_components/code-box/code-box.css',
-          'dist/bower_components/es5-shim.js': 'bower_components/es5-shim/es5-shim.js',
+          'dist/bower_components/es5-shim.js': 'components/es5-shim/es5-shim.js',
           'dist/index-page-tests.js': 'test/index-page-tests.js'
         }
       }

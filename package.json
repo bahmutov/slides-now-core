@@ -48,13 +48,13 @@
   ],
   "license": "MIT",
   "main": "index.js",
-  "pre-commit": "grunt && npm test",
+  "pre-commit": "npm test",
   "repository": {
     "type": "git",
     "url": "git://github.com/bahmutov/slides-now-core.git"
   },
   "scripts": {
-    "test": "npm run unit && npm run e2e",
+    "test": "npm run unit && npm run e2e && grunt",
     "unit": "node node_modules/gt/gt.js --output src/test/*.coffee",
     "e2e": "node node_modules/gt/gt.js --output test/*.coffee"
   }
