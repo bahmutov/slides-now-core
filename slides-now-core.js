@@ -3150,7 +3150,10 @@ window.mdToPresentation = function(opts) {
     throw new Error('Undefined element to bind presentation to');
   }
   verify.positiveNumber(opts.element.length, 'invalid element to append to ' + opts.element.selector);
-  readable = (opts.mobile != null) && opts.mobile || window.innerWidth < 400;
+  readable = window.innerWidth < 400;
+  if (opts.mobile != null) {
+    readable = opts.mobile;
+  }
   if (readable) {
     $('footer').text('');
   } else if (opts.filename) {
