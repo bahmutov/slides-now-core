@@ -87,3 +87,17 @@ gt.test 'triple dash 2', ->
     gt.ok !/\-/g.test(slides[1]), 'second slide does not have dashes'
     gt.ok !/hr/g.test(slides[0]), 'first slide does not have hr element'
     gt.ok !/hr/g.test(slides[1]), 'second slide does not have hr element'
+
+block = '''
+# title
+
+> line 1
+
+### footer
+'''
+
+gt.test 'blockquote', ->
+    slides = parse block
+    console.log slides
+    gt.equal slides.length, 1, 'single slide'
+    gt.ok /blockquote/.test(slides[0]), 'there is block quote'
