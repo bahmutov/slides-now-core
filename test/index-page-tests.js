@@ -10,7 +10,8 @@ $(function () {
   window.mdToPresentation({
     md: md,
     filename: 'example',
-    element: $('#presentation')
+    element: $('#presentation'),
+    mobile: false
   });
 
   QUnit.test('number of slides', function () {

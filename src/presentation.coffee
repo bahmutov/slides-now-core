@@ -33,7 +33,7 @@ window.mdToPresentation = (opts) ->
   if !opts.element? then throw new Error('Undefined element to bind presentation to')
   verify.positiveNumber opts.element.length, 'invalid element to append to ' + opts.element.selector
 
-  readable = window.innerWidth < 400
+  readable = opts.mobile? && opts.mobile || window.innerWidth < 400
 
   if readable
     $('footer').text ''
